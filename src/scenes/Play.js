@@ -21,10 +21,40 @@ class Play extends Phaser.Scene{
         keyRESET = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
+        //adding the three spaceships 
+        this.ship01 = new SpaceShip(this, game.config.width + borderUISize * 6, borderUISize * 4, 'spaceship', 0, 30).setOrigin(0,0)
+        this.ship02 = new SpaceShip(this, game.config.width + borderUISize * 3, borderUISize * 5 + borderPadding * 2, 'spaceship', 0, 20).setOrigin(0,0)
+        this.ship03 = new SpaceShip(this, game.config.width, borderUISize * 6 + borderPadding * 4, 'spaceship', 0, 10).setOrigin(0,0)
     }
 
     update(){
         this.starfield.tilePositionX -= 4
         this.p1Rocket.update() 
+        this.ship01.update()
+        this.ship02.update()
+        this.ship03.update()
+        if(this.checkCollison(this.p1Rocket, this.ship03)){
+            this.p1Rocket.reset()
+            this.ship03.reset()
+        }
+        if(this.checkCollison(this.p1Rocket, this.ship02)){
+            this.p1Rocket.reset()
+            this.ship02.reset()
+        }
+        if(this.checkCollison(this.p1Rocket, this.ship01)){
+            this.p1Rocket.reset()
+            this.ship01.reset()
+        }
+    }
+
+    //collison checking
+    checkCollison(rocket, ship){
+        //checking if the rectangles of the ship overlap 
+        if(rocket.x < ship.x + ship.width && rocket.x + rocket.width > ship.x && rocket.y < ship.y + ship.height && rocket.height + rocket.y > ship.y){
+            return true 
+        }
+        else{
+            return false 
+        }
     }
 }
