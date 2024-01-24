@@ -58,10 +58,6 @@ class Play extends Phaser.Scene{
             this.scene.start('menuScene')
         }
         this.starfield.tilePositionX -= 4
-        this.p1Rocket.update() 
-        this.ship01.update()
-        this.ship02.update()
-        this.ship03.update()
         if(this.checkCollison(this.p1Rocket, this.ship03)){
             this.p1Rocket.reset()
             this.shipExplode(this.ship03)
